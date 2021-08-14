@@ -1,4 +1,8 @@
 package com.example.elearning.service;
 
-public class UserService {
+import com.example.elearning.model.User;
+import org.springframework.http.ResponseEntity;
+
+public interface UserService {
+    ResponseEntity<String> addUser(User user);
 }
