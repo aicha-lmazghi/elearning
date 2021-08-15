@@ -11,17 +11,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @AllArgsConstructor
-@Document(collection = "Users")
-public class User {
+@Document(collection = "SubTopics")
+public class SubTopic {
     @Id
     String id;
-    String firstName;
-    String lastName;
-    String Username;
-    String password;
-    String mail;
-    String fullNumber;
+    String name;
     String image;
-    String dateNaiss;
-    Role role;
+    String description;
+    String topic;
+    String createdBy;
 }
