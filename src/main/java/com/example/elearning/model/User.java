@@ -2,8 +2,10 @@ package com.example.elearning.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.*;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -11,10 +13,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @AllArgsConstructor
-@Document(collection = "Users")
+
+@Entity
 public class User {
+
     @Id
-    String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     String firstName;
     String lastName;
     String Username;
@@ -23,5 +28,12 @@ public class User {
     String fullNumber;
     String image;
     String dateNaiss;
+    @ManyToOne
     Role role;
+    @OneToMany(mappedBy = "createdBy")
+    List<Topic> topics;
+    @OneToMany(mappedBy = "createdBy")
+    List<SubTopic> subtopics;
+    @OneToMany(mappedBy = "createdBy")
+    List<Ressource> ressources;
 }

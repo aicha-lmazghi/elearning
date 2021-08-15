@@ -2,8 +2,9 @@ package com.example.elearning.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
+
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -11,14 +12,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @AllArgsConstructor
-@Document(collection = "Ressources")
+@Entity
 public class Ressource {
     @Id
-    String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     String name;
     String image;
     String description;
-    String createdBy;
-    String subTopic;
+    @ManyToOne
+    User createdBy;
+    @ManyToOne
+    SubTopic subTopic;
+    @ManyToOne
     NiveauDifficulte niveauDifficulte;
 }
