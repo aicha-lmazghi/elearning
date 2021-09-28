@@ -24,6 +24,11 @@ public class Role {
     @OneToMany(mappedBy = "role")
     List<User> users;
 
+    public Role(String name, String description) {
+        this.name=name;
+        this.description=description;
+    }
+
     public Long getId() {
         return id;
     }

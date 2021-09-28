@@ -19,22 +19,31 @@ import java.util.List;
 @Entity
 public class User {
 
+    public User(String idUser,
+                String firstName,
+                String lastName,
+                String fullNumber,
+                String image,
+                String dateNaiss,
+                UserAcces accesUser) {
+        this.idUser = idUser;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullNumber = fullNumber;
+        this.image = image;
+        this.dateNaiss = dateNaiss;
+        this.accesUser = accesUser;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+    String idUser;
     @NotBlank(message = "first Name is mandatory")
     String firstName;
     @NotBlank(message = "last Name is mandatory")
     String lastName;
-    @NotBlank(message = "username is mandatory")
-    @Column(unique = true , nullable = false)
-    String userName;
-    @NotBlank(message = "password is mandatory")
-    String password;
-    boolean loggedIn;
-    @NotBlank(message = "email is mandatory")
-    @Column(nullable = false, unique = true)
-    String mail;
+
     @NotBlank(message = "number is mandatory")
     String fullNumber;
     String image;
@@ -47,6 +56,26 @@ public class User {
     List<SubTopic> subtopics;
     @OneToMany(mappedBy = "createdBy")
     List<Ressource> ressources;
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    @JsonIgnore
+    public UserAcces getAccesUser() {
+        return accesUser;
+    }
+    @JsonSetter
+    public void setAccesUser(UserAcces accesUser) {
+        this.accesUser = accesUser;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    UserAcces accesUser;
 
     public Long getId() {
         return id;
@@ -72,37 +101,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 
     public String getFullNumber() {
         return fullNumber;

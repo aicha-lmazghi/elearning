@@ -3,6 +3,7 @@ package com.example.elearning.repository;
 import com.example.elearning.model.Role;
 import com.example.elearning.model.User;
 
+import com.example.elearning.model.UserAcces;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,7 +30,10 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findById(Long id);
     List<User> findByFirstName(String firstName);
     List<User> findByLastName(String lastName);
-    User findByUserName(String Username);
     List<User> findByRole(Role role);
+    User findByAccesUser(UserAcces userAcces);
+    User findByIdUser(String idUser);
 
+    @Override
+    void delete(User user);
 }
