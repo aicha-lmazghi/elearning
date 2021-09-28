@@ -6,16 +6,15 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 
-
-@Getter
-@Setter
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @AllArgsConstructor
-public class Credentials {
-
+@Getter
+@Setter
+public class AccesUserDto {
     @NotBlank(message = "username is mandatory")
+    @Column(unique = true , nullable = false)
     String userName;
     @NotBlank(message = "password is mandatory")
     String password;

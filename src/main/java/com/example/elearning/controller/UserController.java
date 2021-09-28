@@ -1,8 +1,10 @@
 package com.example.elearning.controller;
 
-import com.example.elearning.model.Credentials;
+
+import com.example.elearning.model.AccesUserDto;
 import com.example.elearning.model.User;
-import com.example.elearning.service.UserService;
+import com.example.elearning.model.UserDto;
+import com.example.elearning.service.UserServices;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +17,22 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     @Autowired
-    UserService userService;
+    UserServices userService;
     @SneakyThrows
     @PostMapping("/registerUser")
-    public ResponseEntity<Integer> addUser(@Valid @RequestBody User user) {
-        return userService.addUser(user);
+    public ResponseEntity<Integer> addUser(@Valid @RequestBody UserDto userdto) {
+
+        return userService.addUser(userdto);
+    }
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<Integer> updateUser(@Valid @RequestBody UserDto userdto,@PathVariable String id) {
+
+        return userService.updateUser(userdto,id);
     }
     @SneakyThrows
-    @PostMapping("/login")
-    public ResponseEntity<Integer> logUser(@Valid @RequestBody Credentials credentials) {
-        return userService.logUser(credentials);
+    @PostMapping("/logUser")
+    public ResponseEntity<Integer> logUser(@Valid @RequestBody AccesUserDto accesUserdto) {
+        return userService.logUser(accesUserdto);
     }
     @GetMapping("/logout/{id}")
     public ResponseEntity<Integer> logUserOut(@PathVariable Long id) {
@@ -38,6 +46,14 @@ public class UserController {
     public ResponseEntity<User> getById(@PathVariable("id") Long id){
         return userService.findUserById(id);
     }
+    @GetMapping("/userid/{userid}")
+    public ResponseEntity<User> getByIdUser(@PathVariable("userid") String userid){
+        return userService.findUserByUserId(userid);
+    }
+    @DeleteMapping("/userid/{userid}")
+    public ResponseEntity<Integer> deleteById(@PathVariable("userid") String id){
+        return userService.deleteUserById(id);
+    }
     @GetMapping("/firstname/{firstname}")
     public ResponseEntity<List<User>> getByFirstname(@PathVariable("firstname") String firstname){
         return userService.findUserByFirstName(firstname);
@@ -47,7 +63,7 @@ public class UserController {
         return userService.findUserByLastName(lastname);
     }
     @GetMapping("/username/{username}")
-    public ResponseEntity<User> getByUsername(@PathVariable("username") String username){
+    public ResponseEntity<UserDto> getByUsername(@PathVariable("username") String username){
         return userService.findUserByUserName(username);
     }
     @GetMapping("/role/{rolename}")
