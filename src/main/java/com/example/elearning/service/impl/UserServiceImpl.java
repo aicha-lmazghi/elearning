@@ -199,9 +199,27 @@ public class UserServiceImpl implements UserServices {
     }
 
     @Override
-    public ResponseEntity<Integer> updateUser(UserDto userdto) {
-        User user=userRepository.findByIdUser(userdto.getIdUser());
-        return null;
+    public ResponseEntity<Integer> updateUser(UserDto userdto,String id) {
+        User user=userRepository.findByIdUser(id);
+        if(user!=null){
+            user.setFirstName(userdto.getFirstName());
+            user.setLastName(userdto.getLastName());
+            user.setDateNaiss(userdto.getDateNaiss());
+            user.setMail(userdto.getMail());
+            user.setFullNumber(userdto.getFullNumber());
+            user.setImage(userdto.getImage());
+            Role role=rolerepository.findByName(userdto.getRole());
+            if(role!=null) {
+                user.setRole(role);
+            }
+            userRepository.save(user);
+            return new ResponseEntity<>(1,HttpStatus.OK);
+            }
+
+        else{
+            return new ResponseEntity<>(-1,HttpStatus.NOT_FOUND);
+        }
+
     }
 
 

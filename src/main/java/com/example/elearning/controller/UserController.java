@@ -24,10 +24,10 @@ public class UserController {
 
         return userService.addUser(userdto);
     }
-    @PutMapping("/registerUser")
-    public ResponseEntity<Integer> updateUser(@Valid @RequestBody UserDto userdto) {
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<Integer> updateUser(@Valid @RequestBody UserDto userdto,@PathVariable String id) {
 
-        return userService.updateUser(userdto);
+        return userService.updateUser(userdto,id);
     }
     @SneakyThrows
     @PostMapping("/logUser")

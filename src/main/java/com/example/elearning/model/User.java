@@ -43,6 +43,17 @@ public class User {
     String firstName;
     @NotBlank(message = "last Name is mandatory")
     String lastName;
+    @NotBlank(message = "email is mandatory")
+    @Column(nullable = false, unique = true)
+    String mail;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
     @NotBlank(message = "number is mandatory")
     String fullNumber;

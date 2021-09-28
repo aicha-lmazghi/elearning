@@ -21,6 +21,6 @@ public interface UserServices extends UserDetailsService {
     ResponseEntity<Integer> logOutUser(Long id);
     ResponseEntity<List<User>> findUserByRoleName(String roleName);
     ResponseEntity<Integer> deleteUserById(String idUser);
-    ResponseEntity<Integer> updateUser(UserDto userdto);
+    ResponseEntity<Integer> updateUser(UserDto userdto,String id);
 
 }
